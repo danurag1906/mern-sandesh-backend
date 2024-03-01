@@ -64,16 +64,16 @@ def signin(request):
             password = data['password']
 
             user = User.objects.filter(email=email).first()
-            # print(f"User: {user}")  # Debugging statement
+            print(f"User: {user}")  # Debugging statement
             if user is None:
                 return JsonResponse({'success': False, 'message': 'User not found'}, status=401)
 
-            # print(f"User password: {user.password}")  # Debugging statement
+            print(f"User password: {user.password}")  # Debugging statement
             if not check_password(password, user.password):
                 return JsonResponse({'success': False, 'message': 'Invalid credentials'}, status=401)
 
             token = jwt.encode({'userId': str(user.id), 'email': user.email}, 'your_secret_key', algorithm='HS256')
-            # print(f"Generated token: {token}")  # Debugging statement
+            print(f"Generated token: {token}")  # Debugging statement
             return JsonResponse({'success': True, 'message': 'Sign-in successful', 'token': token}, status=200)
         except Exception as e:
             print(f"Error: {e}")
