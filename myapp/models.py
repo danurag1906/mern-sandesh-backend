@@ -13,7 +13,7 @@ class User(models.Model):
         return self.name
 
 class Bill(models.Model):
-    doc_id = models.CharField(max_length=24, unique=True)
+    # doc_id = models.CharField(max_length=24, unique=True)
     billno = models.CharField(max_length=255, unique=True)
     companyname = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

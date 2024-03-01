@@ -90,9 +90,10 @@ def create_bill(request):
             amount = data['amount']
 
             # Generate unique ID for doc_id
-            doc_id = secrets.token_hex(12)  # Generates a 24-character hexadecimal string
+            # doc_id = secrets.token_hex(12)  # Generates a 24-character hexadecimal string
             
-            Bill.objects.create(doc_id=doc_id,billno=billno, companyname=companyname, amount=amount)
+            Bill.objects.create(billno=billno, companyname=companyname, amount=amount)
+            # Bill.objects.create(doc_id=doc_id,billno=billno, companyname=companyname, amount=amount)
 
             return JsonResponse({'success': True, 'message': 'Bill created successfully'}, status=201)
         except KeyError as ke:
@@ -144,13 +145,13 @@ def update_bill(request, id):
             data = json.loads(request.body)
             print('inside update')
             bill = Bill.objects.filter(id=id).first()
-            print(bill.doc_id)
+            # print(bill.doc_id)
             if bill:
                 print('if')
                 bill.billno = data.get('billno', bill.billno)
                 bill.companyname = data.get('companyname', bill.companyname)
                 bill.amount = data.get('amount', bill.amount)
-                bill.doc_id=id
+                # bill.doc_id=id
                 bill.save()
                 return JsonResponse({'success': True, 'message': 'Bill updated successfully'}, status=200)
             else:
@@ -166,7 +167,7 @@ def delete_bill(request, id):
         try:
             print('inside delete')
             bill = Bill.objects.filter(id=id).first()
-            print(bill.doc_id)
+            # print(bill.doc_id)
             if bill:
                 bill.delete()
                 return JsonResponse({'success': True, 'message': 'Bill deleted successfully'}, status=200)
